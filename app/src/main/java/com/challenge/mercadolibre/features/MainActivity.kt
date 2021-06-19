@@ -3,6 +3,7 @@ package com.challenge.mercadolibre.features
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.challenge.mercadolibre.R
 import com.challenge.mercadolibre.databinding.ActivityMainBinding
+import com.challenge.mercadolibre.features.home.HomeFragmentDirections
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +42,17 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        //Agregando accion al texto para ir al fragmen de busqueda
+        //el fragmento de busqueda requiere el pais y el query en caso de que exista una consulta previa
+        binding.appBarMain.tvSearch.setOnClickListener {
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToSearchFragment(
+                    query = "",
+                    country = ""
+                )
+            navController.navigate(action)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,5 +66,13 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
         val navController = navHostFragment.navController
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    fun showActionBar() {
+        binding.appBarMain.toolbar.visibility = View.VISIBLE
+    }
+
+    fun hideActionbar() {
+        binding.appBarMain.toolbar.visibility = View.GONE
     }
 }

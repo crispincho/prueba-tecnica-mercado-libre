@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import com.challenge.mercadolibre.R
-import com.challenge.mercadolibre.databinding.HomeFragmentBinding
 import com.challenge.mercadolibre.databinding.SearchFragmentBinding
+import com.challenge.mercadolibre.features.MainActivity
 import com.challenge.mercadolibre.features.search.viewmodel.SearchViewModel
 
 class SearchFragment : Fragment() {
@@ -27,4 +25,13 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).hideActionbar()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as MainActivity).showActionBar()
+    }
 }

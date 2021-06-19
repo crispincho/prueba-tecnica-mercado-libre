@@ -10,12 +10,19 @@
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" >
         <action
-            android:id="@+id/action_homeFragment_to_searchFragment2"
+            android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.challenge.mercadolibre.features.search.SearchFragment"
         android:label="search_fragment"
-        tools:layout="@layout/search_fragment" />
+        tools:layout="@layout/search_fragment" >
+        <argument
+            android:name="query"
+            app:argType="string" />
+        <argument
+            android:name="country"
+            app:argType="string" />
+    </fragment>
 </navigation>
