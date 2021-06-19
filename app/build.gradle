@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id "org.jetbrains.kotlin.kapt"
+    id 'kotlin-kapt'
 }
 
 android {
@@ -34,9 +34,14 @@ android {
     buildFeatures {
         viewBinding true
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     def nav_version = "2.3.5"
     def kotlin_components_version = "1.5.0"
     def rxjava_version = "2.1.1"
