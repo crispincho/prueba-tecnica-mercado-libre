@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,6 +18,7 @@ import com.challenge.mercadolibre.R
 import com.challenge.mercadolibre.core.utilities.SearchDialog
 import com.challenge.mercadolibre.core.utilities.SuggestionProvider
 import com.challenge.mercadolibre.databinding.ActivityMainBinding
+import com.challenge.mercadolibre.features.list.ListProductsFragment
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -77,10 +79,20 @@ class MainActivity : AppCompatActivity() {
     private fun handleIntent(intent: Intent) {
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                //agregando la busqueda en el hostorial
                 SearchRecentSuggestions(this, SuggestionProvider.AUTHORITY, SuggestionProvider.MODE)
                     .saveRecentQuery(query, null)
-                // TODO: 19/06/21 falta agregar el fragmento que mostrara los elementos de la busqueda
-
+                //navegando al fragment que lista los productos enviandole el pais y el query de busqueda
+                val navHostFragment =
+                    supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+                val navController = navHostFragment.navController
+                val bundle = bundleOf(
+                    ListProductsFragment.ARG_COUNTRY to "MCO",
+                    ListProductsFragment.ARG_QUERY to query
+                )
+                navController.navigate(R.id.searchFragment, bundle)
+                //colocando en el edittext del actionBar el query para que el usuario pueda ver la busqueda actual
+                binding.appBarMain.tvSearch.text = query
             }
         }
     }
