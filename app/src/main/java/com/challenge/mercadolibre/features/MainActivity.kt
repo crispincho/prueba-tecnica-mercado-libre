@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var searchDialog: SearchDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +53,9 @@ class MainActivity : AppCompatActivity() {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         binding.appBarMain.tvSearch.setOnClickListener {
             val searchableInfo = searchManager.getSearchableInfo(componentName)
-            SearchDialog(searchableInfo, this).show()
+            searchDialog =
+                SearchDialog(binding.appBarMain.tvSearch.text.toString(), searchableInfo, this)
+            searchDialog.show()
         }
         handleIntent(intent)
     }
@@ -71,9 +74,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onNewIntent(intent: Intent) {
+        //cuando se crea un nuevo intent significa que se hizo una busqueda
+        //por lo que se oculta el dialogo y se validan los argumentos del intent con handleIntent()
         super.onNewIntent(intent)
         setIntent(intent)
         handleIntent(intent)
+        searchDialog.dismiss()
     }
 
     private fun handleIntent(intent: Intent) {

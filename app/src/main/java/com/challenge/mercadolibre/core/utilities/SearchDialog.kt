@@ -7,9 +7,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Window
 import android.view.WindowManager
+import android.widget.SearchView
 import com.challenge.mercadolibre.databinding.DialogSearchBinding
 
-class SearchDialog(private val searchableInfo: SearchableInfo, context: Context) :
+class SearchDialog(
+    private val actualQuery: String,
+    private val searchableInfo: SearchableInfo,
+    context: Context
+) :
     Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +33,7 @@ class SearchDialog(private val searchableInfo: SearchableInfo, context: Context)
         window.attributes = lp
 
         binding.svQuery.setSearchableInfo(searchableInfo)
+        binding.svQuery.setQuery(actualQuery, false)
     }
 
 
