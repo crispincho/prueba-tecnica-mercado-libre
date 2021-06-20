@@ -1,9 +1,12 @@
 package com.challenge.mercadolibre.features
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.SearchManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.provider.SearchRecentSuggestions
 import android.view.Menu
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,8 +14,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.challenge.mercadolibre.R
+import com.challenge.mercadolibre.core.utilities.SearchDialog
+import com.challenge.mercadolibre.core.utilities.SuggestionProvider
 import com.challenge.mercadolibre.databinding.ActivityMainBinding
-import com.challenge.mercadolibre.features.home.HomeFragmentDirections
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -43,16 +47,12 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        //Agregando accion al texto para ir al fragmen de busqueda
-        //el fragmento de busqueda requiere el pais y el query en caso de que exista una consulta previa
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         binding.appBarMain.tvSearch.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToSearchFragment(
-                    query = "",
-                    country = ""
-                )
-            navController.navigate(action)
+            val searchableInfo = searchManager.getSearchableInfo(componentName)
+            SearchDialog(searchableInfo, this).show()
         }
+        handleIntent(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,11 +68,20 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun showActionBar() {
-        binding.appBarMain.toolbar.visibility = View.VISIBLE
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntent(intent)
     }
 
-    fun hideActionbar() {
-        binding.appBarMain.toolbar.visibility = View.GONE
+    private fun handleIntent(intent: Intent) {
+        if (Intent.ACTION_SEARCH == intent.action) {
+            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
+                SearchRecentSuggestions(this, SuggestionProvider.AUTHORITY, SuggestionProvider.MODE)
+                    .saveRecentQuery(query, null)
+                // TODO: 19/06/21 falta agregar el fragmento que mostrara los elementos de la busqueda
+
+            }
+        }
     }
 }
