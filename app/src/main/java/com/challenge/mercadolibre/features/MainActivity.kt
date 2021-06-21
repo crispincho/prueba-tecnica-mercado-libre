@@ -15,8 +15,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.challenge.mercadolibre.R
-import com.challenge.mercadolibre.core.utilities.SearchDialog
-import com.challenge.mercadolibre.core.utilities.SuggestionProvider
+import com.challenge.mercadolibre.core.utilities.searchdialog.SearchDialog
+import com.challenge.mercadolibre.core.utilities.searchdialog.SuggestionProvider
 import com.challenge.mercadolibre.databinding.ActivityMainBinding
 import com.challenge.mercadolibre.features.list.ListProductsFragment
 import com.google.android.material.navigation.NavigationView
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment, R.id.searchFragment
+                R.id.homeFragment, R.id.listProductFragment
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 SearchDialog(binding.appBarMain.tvSearch.text.toString(), searchableInfo, this)
             searchDialog.show()
         }
-        handleIntent(intent)
+        binding.appBarMain.tvSearch.text = intent.getStringExtra(SearchManager.QUERY)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                     ListProductsFragment.ARG_COUNTRY to "MCO",
                     ListProductsFragment.ARG_QUERY to query
                 )
-                navController.navigate(R.id.searchFragment, bundle)
+                navController.navigate(R.id.listProductFragment, bundle)
                 //colocando en el edittext del actionBar el query para que el usuario pueda ver la busqueda actual
                 binding.appBarMain.tvSearch.text = query
             }

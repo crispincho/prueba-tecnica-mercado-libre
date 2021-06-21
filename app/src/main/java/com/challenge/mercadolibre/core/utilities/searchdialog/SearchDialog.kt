@@ -1,4 +1,4 @@
-package com.challenge.mercadolibre.core.utilities
+package com.challenge.mercadolibre.core.utilities.searchdialog
 
 import android.app.Dialog
 import android.app.SearchableInfo
@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Window
 import android.view.WindowManager
-import android.widget.SearchView
 import com.challenge.mercadolibre.databinding.DialogSearchBinding
 
 class SearchDialog(

@@ -10,5 +10,11 @@ data class Item(
     @SerializedName("price")
     val price: Int,
     @SerializedName("thumbnail")
-    val thumbnail: String
+    val thumbnail: String,
+    @SerializedName("sold_quantity")
+    val soldQuantity: Int,
+    @SerializedName("condition")
+    val condition: String,
+    @SerializedName("pictures")
+    val pictures: List<Pictures>,
 )

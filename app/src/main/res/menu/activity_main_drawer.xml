@@ -9,7 +9,7 @@
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/searchFragment"
+            android:id="@+id/listProductFragment"
             android:icon="@drawable/ic_category_black_24dp"
             android:title="@string/menu_categories" />
     </group>

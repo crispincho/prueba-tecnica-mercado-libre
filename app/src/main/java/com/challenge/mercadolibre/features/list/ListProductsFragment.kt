@@ -2,13 +2,15 @@ package com.challenge.mercadolibre.features.list
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.lottie.LottieAnimationView
+import com.challenge.mercadolibre.core.utilities.showLoading
 import com.challenge.mercadolibre.databinding.ListProductFragmentBinding
 import com.challenge.mercadolibre.features.list.adapter.ItemsAdapter
 import com.challenge.mercadolibre.features.list.viewmodel.ListProductsViewModel
@@ -39,26 +41,16 @@ class ListProductsFragment : Fragment(), ListProductsNavigation {
         })
 
         viewModel.loading.observe(viewLifecycleOwner, {
-            showLoading(it)
+            showLoading(it,binding.lavLoading)
         })
 
         viewModel.getProducts(args.query)
         return binding.root
     }
 
-    private fun showLoading(show: Boolean) {
-        if (show) {
-            binding.lavLoading.visibility = View.VISIBLE
-            binding.lavLoading.playAnimation()
-        } else {
-            binding.lavLoading.visibility = View.GONE
-            binding.lavLoading.pauseAnimation()
-        }
-    }
-
     override fun goToDetail(id: String) {
-        Log.i("Prueba", "ir a detalle $id")
-        // TODO: 20/06/21 falta navegar al detalle del item
+        val navDirection = ListProductsFragmentDirections.actionSearchFragmentToDetailFragment(id)
+        findNavController().navigate(navDirection)
     }
 
 }

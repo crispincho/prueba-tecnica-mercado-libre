@@ -4,6 +4,7 @@ import com.challenge.mercadolibre.core.service.entities.Item
 import com.challenge.mercadolibre.core.service.entities.Search
 import io.reactivex.Single
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -12,5 +13,5 @@ interface ApiService {
     fun getSeachItems(@Query("q") query: String): Single<Search>
 
     @GET(Endpoints.GET_ITEM)
-    fun getItem(): Single<Item>
+    fun getItem(@Path("idItem") idItem: String): Single<Item>
 }

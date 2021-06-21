@@ -29,8 +29,8 @@
                 android:resource="@xml/searchable" />
         </activity>
         <provider
-            android:name=".core.utilities.SuggestionProvider"
-            android:authorities="com.challenge.mercadolibre.core.utilities.SuggestionProvider"
+            android:name=".core.utilities.searchdialog.SuggestionProvider"
+            android:authorities="com.challenge.mercadolibre.core.utilities.searchdialog.SuggestionProvider"
             android:exported="false" />
     </application>
 

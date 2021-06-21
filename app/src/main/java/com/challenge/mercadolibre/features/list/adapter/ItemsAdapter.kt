@@ -4,13 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.challenge.mercadolibre.R
 import com.challenge.mercadolibre.core.service.entities.Item
+import com.challenge.mercadolibre.core.utilities.moneyFormat
 import com.challenge.mercadolibre.databinding.ItemProductBinding
 import com.challenge.mercadolibre.features.list.ListProductsNavigation
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.*
 
 class ItemsAdapter(
     private val products: List<Item>,
@@ -38,14 +35,6 @@ class ItemsAdapter(
         return products.size
     }
 
-    private fun moneyFormat(valor: Int): String? {
-        val patter = "$ ###,###"
-        val localeCOL = Locale("es", "CO")
-        val nf = NumberFormat.getNumberInstance(localeCOL)
-        val moneyFormat = nf as DecimalFormat
-        moneyFormat.applyPattern(patter)
-        return moneyFormat.format(valor)
-    }
 
     class ItemViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
 }

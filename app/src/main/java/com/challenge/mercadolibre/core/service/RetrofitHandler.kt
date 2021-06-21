@@ -32,7 +32,7 @@ object RetrofitHandler {
         return httpHandler.getSeachItems(query)
     }
 
-    fun getItem(): Single<Item> {
-        return httpHandler.getItem()
+    fun getItem(idItem: String): Single<Item> {
+        return httpHandler.getItem(idItem)
     }
 }
