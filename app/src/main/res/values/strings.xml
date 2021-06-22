@@ -21,4 +21,6 @@
     <string name="no_internet_tittle">¡Parece que no hay internet!</string>
     <string name="no_internet">Revisa tu conexión para continuar</string>
     <string name="retry">REINTETAR</string>
+    <string name="not_found_tittle">"No hay publicaciones que coincidan con tu búsqueda.</string>
+    <string name="not_found">Revisa la ortografía de la palabra. \n\nUtiliza palabras más genéricas o menos palabras. \n\nNavega por las categorías para encontrar un producto similar</string>
 </resources>

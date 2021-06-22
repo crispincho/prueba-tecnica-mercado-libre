@@ -15,24 +15,26 @@ class ListProductsViewModel(application: Application) : AndroidViewModel(applica
     }
 
     val productList = MutableLiveData<List<Item>>()
-
     val loading = MutableLiveData<Boolean>()
-
     val noConnection = MutableLiveData<Boolean>()
+    val notFound = MutableLiveData<Boolean>()
 
     init {
         loading.value = false
         noConnection.value = false
+        notFound.value = false
     }
 
     fun getProducts(query: String, idSite: String) {
         noConnection.value = false
         loading.value = true
+        notFound.value = false
         ListProductsRepository.getProducts(
             query,
             idSite,
             object : ListProductsDataSource.ProductsCallback {
                 override fun onSuccess(products: List<Item>) {
+                    notFound.value = products.isNullOrEmpty()
                     productList.value = products
                     loading.value = false
                     noConnection.value = false

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.challenge.mercadolibre.core.utilities.showLoading
 import com.challenge.mercadolibre.core.utilities.showNoConnection
+import com.challenge.mercadolibre.core.utilities.showNotFound
 import com.challenge.mercadolibre.databinding.ListProductFragmentBinding
 import com.challenge.mercadolibre.features.list.adapter.ItemsAdapter
 import com.challenge.mercadolibre.features.list.viewmodel.ListProductsViewModel
@@ -48,6 +49,10 @@ class ListProductsFragment : Fragment(), ListProductsNavigation {
 
         viewModel.noConnection.observe(viewLifecycleOwner, {
             showNoConnection(it, binding.noConnection)
+        })
+
+        viewModel.notFound.observe(viewLifecycleOwner, {
+            showNotFound(it, binding.emptyView)
         })
 
         viewModel.getProducts(args.query, args.country)
