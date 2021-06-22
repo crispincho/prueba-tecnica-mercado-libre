@@ -1,6 +1,7 @@
 package com.challenge.mercadolibre.features.detail.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.challenge.mercadolibre.R
@@ -12,6 +13,10 @@ import com.challenge.mercadolibre.features.detail.data.DetailRepository
 import java.util.*
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
+
+    companion object {
+        const val TAG = "DetailViewModel"
+    }
 
     val tittle = MutableLiveData<String>()
     val condition = MutableLiveData<String>()
@@ -48,6 +53,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
             }
 
             override fun onError(message: String) {
+                Log.e(TAG, "Error al obtener detalle: $message")
                 loading.value = false
             }
 

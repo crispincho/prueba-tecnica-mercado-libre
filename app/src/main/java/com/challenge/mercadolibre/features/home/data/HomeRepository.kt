@@ -1,21 +1,21 @@
-package com.challenge.mercadolibre.features.detail.data
+package com.challenge.mercadolibre.features.home.data
 
 import com.challenge.mercadolibre.core.service.RetrofitHandler
-import com.challenge.mercadolibre.core.service.entities.Item
+import com.challenge.mercadolibre.core.service.entities.Site
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-object DetailRepository {
+object HomeRepository {
 
-    fun getItemDetail(idProduct: String, callback: DetailDataSource.ProductCallback) {
+    fun getSites(callback: HomeDataSource.SitesCallback) {
         CompositeDisposable().add(
-            RetrofitHandler.getItem(idProduct)
+            RetrofitHandler.getSites()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<Item>() {
-                    override fun onSuccess(t: Item) {
+                .subscribeWith(object : DisposableSingleObserver<List<Site>>() {
+                    override fun onSuccess(t: List<Site>) {
                         callback.onSuccess(t)
                     }
 

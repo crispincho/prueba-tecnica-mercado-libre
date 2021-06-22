@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.airbnb.lottie.LottieAnimationView
 import com.challenge.mercadolibre.core.utilities.showLoading
 import com.challenge.mercadolibre.databinding.ListProductFragmentBinding
 import com.challenge.mercadolibre.features.list.adapter.ItemsAdapter
@@ -24,14 +23,12 @@ class ListProductsFragment : Fragment(), ListProductsNavigation {
 
     private lateinit var viewModel: ListProductsViewModel
     private lateinit var binding: ListProductFragmentBinding
-    private lateinit var country: String
     private val args: ListProductsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        country = args.country
         binding = ListProductFragmentBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(ListProductsViewModel::class.java)
 
@@ -41,10 +38,10 @@ class ListProductsFragment : Fragment(), ListProductsNavigation {
         })
 
         viewModel.loading.observe(viewLifecycleOwner, {
-            showLoading(it,binding.lavLoading)
+            showLoading(it, binding.lavLoading)
         })
 
-        viewModel.getProducts(args.query)
+        viewModel.getProducts(args.query, args.country)
         return binding.root
     }
 

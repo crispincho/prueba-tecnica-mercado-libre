@@ -11,9 +11,13 @@ object ListProductsRepository {
 
     private val diposable = CompositeDisposable()
 
-    fun getProducts(query: String, callback: ListProductsDataSource.ProductsCallback) {
+    fun getProducts(
+        query: String,
+        idSite: String,
+        callback: ListProductsDataSource.ProductsCallback
+    ) {
         diposable.add(
-            RetrofitHandler.getSeachItems(query)
+            RetrofitHandler.getSeachItems(query, idSite)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<Search>() {

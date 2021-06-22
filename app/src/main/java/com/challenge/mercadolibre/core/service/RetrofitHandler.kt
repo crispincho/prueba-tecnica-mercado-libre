@@ -2,6 +2,7 @@ package com.challenge.mercadolibre.core.service
 
 import com.challenge.mercadolibre.core.service.entities.Item
 import com.challenge.mercadolibre.core.service.entities.Search
+import com.challenge.mercadolibre.core.service.entities.Site
 import io.reactivex.Single
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -13,7 +14,8 @@ object RetrofitHandler {
 
     private const val TIME_OUT: Long = 30
 
-    val httpHandler: ApiService = providesRestAdapter().create(ApiService::class.java)
+    private val MercadoLibreHandler: ApiService =
+        providesRestAdapter().create(ApiService::class.java)
 
     private fun providesRestAdapter(): Retrofit {
         val okHttpClient = OkHttpClient.Builder()
@@ -28,11 +30,15 @@ object RetrofitHandler {
             .build()
     }
 
-    fun getSeachItems(query: String): Single<Search> {
-        return httpHandler.getSeachItems(query)
+    fun getSeachItems(query: String, idSite: String): Single<Search> {
+        return MercadoLibreHandler.getSeachItems(idSite, query)
     }
 
     fun getItem(idItem: String): Single<Item> {
-        return httpHandler.getItem(idItem)
+        return MercadoLibreHandler.getItem(idItem)
+    }
+
+    fun getSites(): Single<List<Site>> {
+        return MercadoLibreHandler.getSites()
     }
 }

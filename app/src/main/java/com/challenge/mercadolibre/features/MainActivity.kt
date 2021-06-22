@@ -15,6 +15,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.challenge.mercadolibre.R
+import com.challenge.mercadolibre.core.utilities.PREFERENCE_NAME
+import com.challenge.mercadolibre.core.utilities.getCountry
 import com.challenge.mercadolibre.core.utilities.searchdialog.SearchDialog
 import com.challenge.mercadolibre.core.utilities.searchdialog.SuggestionProvider
 import com.challenge.mercadolibre.databinding.ActivityMainBinding
@@ -93,7 +95,12 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
                 val navController = navHostFragment.navController
                 val bundle = bundleOf(
-                    ListProductsFragment.ARG_COUNTRY to "MCO",
+                    ListProductsFragment.ARG_COUNTRY to getCountry(
+                        getSharedPreferences(
+                            PREFERENCE_NAME,
+                            Context.MODE_PRIVATE
+                        )
+                    ),
                     ListProductsFragment.ARG_QUERY to query
                 )
                 navController.navigate(R.id.listProductFragment, bundle)
