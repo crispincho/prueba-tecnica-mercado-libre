@@ -2,6 +2,7 @@ package com.challenge.mercadolibre.core.utilities
 
 import android.view.View
 import com.airbnb.lottie.LottieAnimationView
+import com.challenge.mercadolibre.databinding.NoConnectionBinding
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -22,5 +23,15 @@ fun showLoading(show: Boolean, lavLoading: LottieAnimationView) {
     } else {
         lavLoading.visibility = View.GONE
         lavLoading.pauseAnimation()
+    }
+}
+
+fun showNoConnection(show: Boolean, binding: NoConnectionBinding) {
+    if (show) {
+        binding.lottieAnimationView.playAnimation()
+        binding.root.visibility = View.VISIBLE
+    } else {
+        binding.lottieAnimationView.pauseAnimation()
+        binding.root.visibility = View.GONE
     }
 }

@@ -19,21 +19,27 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     val loading = MutableLiveData<Boolean>()
 
+    val noConnection = MutableLiveData<Boolean>()
+
     init {
         loading.value = false
+        noConnection.value = false
     }
 
     fun getCountries() {
+        noConnection.value = false
         loading.value = true
         HomeRepository.getSites(object : HomeDataSource.SitesCallback {
             override fun onSuccess(sites: List<Site>) {
                 this@HomeViewModel.sites.value = sortSites(sites)
                 loading.value = false
+                noConnection.value = false
             }
 
             override fun onError(message: String) {
                 Log.e(TAG, "error al obtener los paises: $message")
                 loading.value = false
+                noConnection.value = true
             }
         })
     }

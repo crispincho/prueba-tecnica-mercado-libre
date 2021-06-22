@@ -18,4 +18,7 @@
     <string name="neww">Nuevo</string>
     <string name="used">Usado</string>
     <string name="flag">Bandera del pais</string>
+    <string name="no_internet_tittle">¡Parece que no hay internet!</string>
+    <string name="no_internet">Revisa tu conexión para continuar</string>
+    <string name="retry">REINTETAR</string>
 </resources>

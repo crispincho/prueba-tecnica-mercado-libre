@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.challenge.mercadolibre.core.utilities.showLoading
+import com.challenge.mercadolibre.core.utilities.showNoConnection
 import com.challenge.mercadolibre.databinding.ListProductFragmentBinding
 import com.challenge.mercadolibre.features.list.adapter.ItemsAdapter
 import com.challenge.mercadolibre.features.list.viewmodel.ListProductsViewModel
@@ -32,6 +33,10 @@ class ListProductsFragment : Fragment(), ListProductsNavigation {
         binding = ListProductFragmentBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(ListProductsViewModel::class.java)
 
+        binding.noConnection.btnRetry.setOnClickListener {
+            viewModel.getProducts(args.query, args.country)
+        }
+
         viewModel.productList.observe(viewLifecycleOwner, {
             binding.rvProducts.layoutManager = LinearLayoutManager(context)
             binding.rvProducts.adapter = ItemsAdapter(it, this)
@@ -39,6 +44,10 @@ class ListProductsFragment : Fragment(), ListProductsNavigation {
 
         viewModel.loading.observe(viewLifecycleOwner, {
             showLoading(it, binding.lavLoading)
+        })
+
+        viewModel.noConnection.observe(viewLifecycleOwner, {
+            showNoConnection(it, binding.noConnection)
         })
 
         viewModel.getProducts(args.query, args.country)

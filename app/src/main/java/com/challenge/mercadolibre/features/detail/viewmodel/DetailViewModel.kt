@@ -28,14 +28,16 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     val totalPictures = MutableLiveData<Int>()
 
     val loading = MutableLiveData<Boolean>()
-
+    val noConnection = MutableLiveData<Boolean>()
 
     init {
         loading.value = false
         actualPicture.value = 1
+        noConnection.value = false
     }
 
     fun getDetail(idProduct: String) {
+        noConnection.value = false
         loading.value = true
         DetailRepository.getItemDetail(idProduct, object : DetailDataSource.ProductCallback {
             override fun onSuccess(product: Item) {
@@ -50,11 +52,13 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
                 pictures.value = product.pictures
                 totalPictures.value = product.pictures.size
                 loading.value = false
+                noConnection.value = false
             }
 
             override fun onError(message: String) {
                 Log.e(TAG, "Error al obtener detalle: $message")
                 loading.value = false
+                noConnection.value = true
             }
 
         })

@@ -18,11 +18,15 @@ class ListProductsViewModel(application: Application) : AndroidViewModel(applica
 
     val loading = MutableLiveData<Boolean>()
 
+    val noConnection = MutableLiveData<Boolean>()
+
     init {
         loading.value = false
+        noConnection.value = false
     }
 
     fun getProducts(query: String, idSite: String) {
+        noConnection.value = false
         loading.value = true
         ListProductsRepository.getProducts(
             query,
@@ -31,11 +35,13 @@ class ListProductsViewModel(application: Application) : AndroidViewModel(applica
                 override fun onSuccess(products: List<Item>) {
                     productList.value = products
                     loading.value = false
+                    noConnection.value = false
                 }
 
                 override fun onError(message: String) {
                     Log.e(TAG, "error al obtener los items de la busqueda: $message")
                     loading.value = false
+                    noConnection.value = true
                 }
             })
     }

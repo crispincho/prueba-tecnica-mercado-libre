@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager.widget.ViewPager
 import com.challenge.mercadolibre.core.utilities.showLoading
+import com.challenge.mercadolibre.core.utilities.showNoConnection
 import com.challenge.mercadolibre.databinding.DetailFragmentBinding
 import com.challenge.mercadolibre.features.detail.adapter.PictureAdapter
 import com.challenge.mercadolibre.features.detail.viewmodel.DetailViewModel
@@ -28,6 +29,10 @@ class DetailFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         binding.viewmodel = viewModel
 
+        binding.noConnection.btnRetry.setOnClickListener {
+            viewModel.getDetail(idProduct)
+        }
+
         viewModel.loading.observe(viewLifecycleOwner, {
             binding.container.visibility = if (it) View.INVISIBLE else View.VISIBLE
             showLoading(it, binding.lavLoading)
@@ -36,6 +41,11 @@ class DetailFragment : Fragment() {
         viewModel.pictures.observe(viewLifecycleOwner, { picture ->
             val urls = picture.map { it.secure_url }
             loadPictures(urls)
+        })
+
+        viewModel.noConnection.observe(viewLifecycleOwner, {
+            showNoConnection(it, binding.noConnection)
+            binding.container.visibility = if (it) View.GONE else View.VISIBLE
         })
 
         viewModel.getDetail(idProduct)

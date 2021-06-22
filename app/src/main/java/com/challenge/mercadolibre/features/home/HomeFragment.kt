@@ -11,9 +11,7 @@ import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import com.challenge.mercadolibre.R
 import com.challenge.mercadolibre.core.service.entities.Site
-import com.challenge.mercadolibre.core.utilities.PREFERENCE_NAME
-import com.challenge.mercadolibre.core.utilities.getCountry
-import com.challenge.mercadolibre.core.utilities.saveCountry
+import com.challenge.mercadolibre.core.utilities.*
 import com.challenge.mercadolibre.databinding.HomeFragmentBinding
 import com.challenge.mercadolibre.features.home.adapter.SitesAdapter
 import com.challenge.mercadolibre.features.home.viewmodel.HomeViewModel
@@ -33,9 +31,24 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.viewModel = viewModel
 
+        binding.noConnection.btnRetry.setOnClickListener {
+            viewModel.getCountries()
+        }
+
         viewModel.sites.observe(viewLifecycleOwner, {
             loadSites(it)
         })
+
+        viewModel.loading.observe(viewLifecycleOwner, {
+            showLoading(it, binding.lavLoading)
+            binding.container.visibility = if (it) View.GONE else View.VISIBLE
+        })
+
+        viewModel.noConnection.observe(viewLifecycleOwner, {
+            showNoConnection(it, binding.noConnection)
+            binding.container.visibility = if (it) View.GONE else View.VISIBLE
+        })
+
         viewModel.getCountries()
         return binding.root
     }
