@@ -29,20 +29,20 @@ fun showLoading(show: Boolean, lavLoading: LottieAnimationView) {
 
 fun showNoConnection(show: Boolean, binding: NoConnectionBinding) {
     if (show) {
-        binding.lottieAnimationView.playAnimation()
+        binding.lavNoConnection.playAnimation()
         binding.root.visibility = View.VISIBLE
     } else {
-        binding.lottieAnimationView.pauseAnimation()
+        binding.lavNoConnection.pauseAnimation()
         binding.root.visibility = View.GONE
     }
 }
 
 fun showNotFound(show: Boolean, binding: EmptyViewBinding) {
     if (show) {
-        binding.lottieAnimationView.playAnimation()
+        binding.lavNotFound.playAnimation()
         binding.root.visibility = View.VISIBLE
     } else {
-        binding.lottieAnimationView.pauseAnimation()
+        binding.lavNotFound.pauseAnimation()
         binding.root.visibility = View.GONE
     }
 }

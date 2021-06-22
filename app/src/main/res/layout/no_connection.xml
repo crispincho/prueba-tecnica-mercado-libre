@@ -6,7 +6,7 @@
     android:background="@color/background_color">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView"
+        android:id="@+id/lavNoConnection"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginStart="24dp"
@@ -29,9 +29,9 @@
         android:text="@string/no_internet_tittle"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
-        app:layout_constraintStart_toStartOf="@+id/lottieAnimationView"
-        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
+        app:layout_constraintEnd_toEndOf="@+id/lavNoConnection"
+        app:layout_constraintStart_toStartOf="@+id/lavNoConnection"
+        app:layout_constraintTop_toBottomOf="@+id/lavNoConnection" />
 
     <TextView
         android:id="@+id/textView3"
@@ -41,8 +41,8 @@
         android:gravity="center"
         android:text="@string/no_internet"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/lottieAnimationView"
-        app:layout_constraintStart_toStartOf="@+id/lottieAnimationView"
+        app:layout_constraintEnd_toEndOf="@+id/lavNoConnection"
+        app:layout_constraintStart_toStartOf="@+id/lavNoConnection"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
