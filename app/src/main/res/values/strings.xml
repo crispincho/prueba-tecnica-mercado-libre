@@ -17,4 +17,5 @@
     <string name="actual_picture">"%d/%d "</string>
     <string name="neww">Nuevo</string>
     <string name="used">Usado</string>
+    <string name="flag">Bandera del pais</string>
 </resources>
