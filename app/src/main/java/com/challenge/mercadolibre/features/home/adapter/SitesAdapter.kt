@@ -53,7 +53,7 @@ class SitesAdapter(private val sites: List<Site>) : BaseAdapter() {
             "Brasil" -> "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/300px-Flag_of_Brazil.svg.png"
             "Guatemala" -> "https://www.lifeder.com/wp-content/uploads/2018/12/640px-Flag_of_Guatemala.svg_.png"
             "Mexico" -> "https://images-na.ssl-images-amazon.com/images/I/61syhBK5m1L._AC_SX425_.jpg"
-            "Chile" -> "https://lh3.googleusercontent.com/proxy/lPrX7DVg24fH0DWd3ZlxykWggQ21LxW5lwOG0lqA7Flkuqnu0T3f-bt2OnveRxk7TGpEcTFFVeKZoFY6vaffdwH1VYpxA-4h-KAjVIqr1gWVFAmX6A"
+            "Chile" -> "https://lh3.googleusercontent.com/proxy/RJz6ajkH7YAixFdZzVOTE0uyr5S097HGBjdct0hkewgBU79exBY9x_NKLN-9Iyqgn-Ncb5rcO4v7OXFNr6DZ2XtFWDfTCS5RtlqfCtoJyITp69363Q"
             "Colombia" -> "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Colombia.svg/200px-Flag_of_Colombia.svg.png"
             else -> "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Colombia.svg/200px-Flag_of_Colombia.svg.png"
         }

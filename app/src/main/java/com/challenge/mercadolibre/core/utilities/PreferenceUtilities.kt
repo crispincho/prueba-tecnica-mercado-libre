@@ -1,8 +1,6 @@
 package com.challenge.mercadolibre.core.utilities
 
-import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 
 const val PREFERENCE_NAME = "Site"
 
