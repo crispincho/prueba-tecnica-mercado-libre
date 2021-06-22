@@ -6,8 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.view.Menu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -64,14 +66,11 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-    }
 
-    private fun openSearchDialog() {
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchableInfo = searchManager.getSearchableInfo(componentName)
-        searchDialog =
-            SearchDialog(binding.appBarMain.tvSearch.text.toString(), searchableInfo, this)
-        searchDialog.show()
+        binding.appBarMain.tvSearch.setOnClickListener {
+            openSearchDialog()
+        }
+        binding.appBarMain.tvSearch.text = intent.getStringExtra(SearchManager.QUERY)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -94,6 +93,21 @@ class MainActivity : AppCompatActivity() {
         setIntent(intent)
         handleIntent(intent)
         searchDialog.dismiss()
+    }
+
+    private fun openSearchDialog() {
+        //antes de abrir el dialogo de busqueda se valida que ya tenga seleccionado un pais de referencia pra la busqueda
+        val country = getCountry(getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE))
+        if (country.isNotEmpty()) {
+            val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+            val searchableInfo = searchManager.getSearchableInfo(componentName)
+            searchDialog =
+                SearchDialog(binding.appBarMain.tvSearch.text.toString(), searchableInfo, this)
+            searchDialog.show()
+        } else {
+            //en caso de que no tenga seleccionado ningun pais se mustra un mensaje al usuario
+            Toast.makeText(this, getString(R.string.select_country), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun handleIntent(intent: Intent) {
