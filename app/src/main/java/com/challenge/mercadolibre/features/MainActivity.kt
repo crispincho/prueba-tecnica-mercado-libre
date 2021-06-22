@@ -45,21 +45,30 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.homeFragment, R.id.listProductFragment
-            ), drawerLayout
+            setOf(R.id.homeFragment), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         binding.appBarMain.tvSearch.setOnClickListener {
-            val searchableInfo = searchManager.getSearchableInfo(componentName)
-            searchDialog =
-                SearchDialog(binding.appBarMain.tvSearch.text.toString(), searchableInfo, this)
-            searchDialog.show()
+            openSearchDialog()
         }
         binding.appBarMain.tvSearch.text = intent.getStringExtra(SearchManager.QUERY)
+
+        navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.search -> openSearchDialog()
+            }
+            true
+        }
+    }
+
+    private fun openSearchDialog() {
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchableInfo = searchManager.getSearchableInfo(componentName)
+        searchDialog =
+            SearchDialog(binding.appBarMain.tvSearch.text.toString(), searchableInfo, this)
+        searchDialog.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

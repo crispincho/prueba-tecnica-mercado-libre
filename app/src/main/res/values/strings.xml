@@ -23,4 +23,5 @@
     <string name="retry">REINTETAR</string>
     <string name="not_found_tittle">"No hay publicaciones que coincidan con tu búsqueda.</string>
     <string name="not_found">Revisa la ortografía de la palabra. \n\nUtiliza palabras más genéricas o menos palabras. \n\nNavega por las categorías para encontrar un producto similar</string>
+    <string name="search_option">Buscar</string>
 </resources>

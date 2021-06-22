@@ -9,8 +9,8 @@
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/listProductFragment"
-            android:icon="@drawable/ic_category_black_24dp"
-            android:title="@string/menu_categories" />
+            android:id="@+id/search"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="@string/search_option" />
     </group>
 </menu>
