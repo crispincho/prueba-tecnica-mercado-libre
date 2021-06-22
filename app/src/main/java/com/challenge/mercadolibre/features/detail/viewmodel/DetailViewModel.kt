@@ -42,10 +42,11 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
         DetailRepository.getItemDetail(idProduct, object : DetailDataSource.ProductCallback {
             override fun onSuccess(product: Item) {
                 tittle.value = product.tittle
-                condition.value = if (product.condition.toUpperCase(Locale.ROOT) == "NEW")
-                    getApplication<Application>().baseContext.getString(R.string.neww)
-                else
-                    getApplication<Application>().baseContext.getString(R.string.used)
+                condition.value =
+                    if (!product.condition.isNullOrEmpty() && product.condition.toUpperCase(Locale.ROOT) == "NEW")
+                        getApplication<Application>().baseContext.getString(R.string.neww)
+                    else
+                        getApplication<Application>().baseContext.getString(R.string.used)
                 soldQuantity.value = "| " + product.soldQuantity.toString() + ""
                 showSoldQuantity.value = product.soldQuantity > 0
                 price.value = moneyFormat(product.price)

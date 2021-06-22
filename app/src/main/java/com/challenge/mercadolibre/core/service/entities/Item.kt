@@ -14,7 +14,7 @@ data class Item(
     @SerializedName("sold_quantity")
     val soldQuantity: Int,
     @SerializedName("condition")
-    val condition: String,
+    val condition: String?,
     @SerializedName("pictures")
     val pictures: List<Pictures>,
 )
