@@ -8,7 +8,7 @@ data class Item(
     @SerializedName("title")
     val tittle: String,
     @SerializedName("price")
-    val price: Int,
+    val price: Double,
     @SerializedName("thumbnail")
     val thumbnail: String,
     @SerializedName("sold_quantity")

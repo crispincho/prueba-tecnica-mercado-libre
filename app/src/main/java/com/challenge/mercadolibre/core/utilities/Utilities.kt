@@ -8,8 +8,8 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
-fun moneyFormat(valor: Int): String {
-    val patter = "$ ###,###"
+fun moneyFormat(valor: Double): String {
+    val patter = "$ ###,###.##"
     val localeCOL = Locale("es", "CO")
     val nf = NumberFormat.getNumberInstance(localeCOL)
     val moneyFormat = nf as DecimalFormat
