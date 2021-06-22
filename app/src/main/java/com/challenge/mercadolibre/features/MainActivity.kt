@@ -47,17 +47,20 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.homeFragment), drawerLayout
         )
+
+        //se configura la navegacion del menu lateral
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        binding.appBarMain.tvSearch.setOnClickListener {
-            openSearchDialog()
-        }
-        binding.appBarMain.tvSearch.text = intent.getStringExtra(SearchManager.QUERY)
-
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.search -> openSearchDialog()
+                R.id.search -> {
+                    openSearchDialog()
+                    drawerLayout.closeDrawer(GravityCompat.START, true)
+                }
+                R.id.homeFragment -> {
+                    navController.navigate(R.id.homeFragment)
+                    drawerLayout.closeDrawer(GravityCompat.START, true)
+                }
             }
             true
         }
