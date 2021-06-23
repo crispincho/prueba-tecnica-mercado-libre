@@ -1,8 +1,8 @@
-package com.challenge.mercadolibre.features.home.data
+package com.challenge.mercadolibre.features.detail.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.challenge.mercadolibre.core.service.RetrofitHandler
-import com.challenge.mercadolibre.core.service.entities.Site
+import com.challenge.mercadolibre.core.service.entities.Item
 import io.github.serpro69.kfaker.Faker
 import io.mockk.every
 import io.mockk.mockk
@@ -18,8 +18,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.util.concurrent.TimeUnit
+import kotlin.random.Random
 
-class HomeRepositoryTest {
+class DetailRepositoryTest {
 
     @get:Rule
     var rule = InstantTaskExecutorRule()
@@ -44,50 +45,48 @@ class HomeRepositoryTest {
     }
 
     @Test
-    fun `obteniendo los paises exitosamente`() {
-        val countiresNumber = 100
-        val countriesList = getFakerCountries(countiresNumber)
-        val testSingle = Single.just(countriesList)
+    fun `obteniendo el item exitosamente`() {
+        val item = getFakerItem()
+        val testSingle = Single.just(item)
 
         mockkObject(RetrofitHandler)
-        every { RetrofitHandler.getSites() } returns testSingle
+        every { RetrofitHandler.getItem(item.id) } returns testSingle
 
-        val callback = mockk<HomeDataSource.SitesCallback>()
+        val callback = mockk<DetailDataSource.ProductCallback>()
         every { callback.onSuccess(any()) } returns Unit
         every { callback.onError(any()) } returns Unit
 
-        HomeRepository.getSites(callback)
-        verify { callback.onSuccess(countriesList) }
+        DetailRepository.getItemDetail(item.id, callback)
+        verify { callback.onSuccess(item) }
     }
 
     @Test
-    fun `fallando en la obtencion de los paises`() {
+    fun `fallando en la obtencion del item`() {
         val message = "Test"
-        val testSingle = Single.error<List<Site>>(Throwable(message))
+        val testSingle = Single.error<Item>(Throwable(message))
 
         mockkObject(RetrofitHandler)
-        every { RetrofitHandler.getSites() } returns testSingle
+        every { RetrofitHandler.getItem(any()) } returns testSingle
 
-        val callback = mockk<HomeDataSource.SitesCallback>()
+        val callback = mockk<DetailDataSource.ProductCallback>()
         every { callback.onSuccess(any()) } returns Unit
         every { callback.onError(any()) } returns Unit
 
-        HomeRepository.getSites(callback)
+        DetailRepository.getItemDetail(Faker().code.asin(), callback)
         verify { callback.onError(message) }
     }
 
-    private fun getFakerCountries(@Suppress("SameParameterValue") countiresNumber: Int): List<Site> {
-        val countries = mutableListOf<Site>()
+    private fun getFakerItem(): Item {
         val faker = Faker()
-        (1..countiresNumber).forEach { _ ->
-            countries.add(
-                Site(
-                    id = faker.code.unique.asin(),
-                    name = faker.worldCup.teams(),
-                    defaultCurrencyId = faker.code.asin()
-                )
-            )
-        }
-        return countries
+        return Item(
+            id = faker.code.asin(),
+            tittle = faker.chiquito.sentences(),
+            price = (1..1000000).random().toDouble(),
+            thumbnail = faker.address.buildingNumber(),
+            soldQuantity = (1..1000000).random(),
+            condition = if (Random.nextBoolean()) "new" else "used",
+            pictures = listOf()
+        )
     }
+
 }
