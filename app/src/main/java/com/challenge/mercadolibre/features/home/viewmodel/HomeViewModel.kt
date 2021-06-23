@@ -44,7 +44,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         })
     }
 
-    private fun sortSites(sites: List<Site>): List<Site> {
+    fun sortSites(sites: List<Site>): List<Site> {
         val sortSites = mutableListOf<Site>()
         sortSites.addAll(sites)
         sortSites.sortWith { o1, o2 ->
